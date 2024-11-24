@@ -10,6 +10,11 @@ GameMechs::GameMechs()
 
     boardSizeX = 20;
     boardSizeY = 10;
+
+    food.setObjPos(-10, -10, 'o');
+    //int the food object to be outside the gameboard
+    //so that before it is ranndomly placed on the gameboard, it will
+    //nont accidentlaly appear on the top left corner of the gameboard (0,0)
 }
 
 GameMechs::GameMechs(int boardX, int boardY)
@@ -91,3 +96,11 @@ void GameMechs::clearInput()
 }
 
 // More methods should be added here
+void GameMechs::generateFood(objPos blockOff)
+{
+
+}
+objPos GameMechs::getFoodPos() const
+{
+    return food;
+}
