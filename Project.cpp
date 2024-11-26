@@ -57,6 +57,34 @@ void RunLogic(void)
 void DrawScreen(void)
 {
     MacUILib_clearScreen();    
+    objPos foodPos = myGM->getFoodPos();
+    int boardX = myGM->getBoardSizeX();
+    int boardY = myGM->getBoardSizeY();
+    for(int y = 0; y < boardY; y++)
+    {
+        for(int x = 0; x < boardX; x++)
+        {
+            if(y == 0 || y == boardY - 1 || x == 0 || x == boardX - 1 )
+            {
+                MacUILib_printf("%c", '#');
+            }
+            else if(x == playerPos.pos->x && y == playerPos.pos->y)
+            {
+                MacUILib_printf("%c", playerPos.symbol);
+            }
+            else if(x == foodPos.pos->x && y == foodPos.pos->y);
+            {
+                MacUILib_printf("%c", foodPos.symbol)
+            }
+            else
+            {
+                MacUILib_printf("%c", ' ');
+            }
+        }
+        MacUILib_printf("\n");
+
+
+
 }
 
 void LoopDelay(void)

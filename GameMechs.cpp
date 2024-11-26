@@ -15,6 +15,7 @@ GameMechs::GameMechs()
     //int the food object to be outside the gameboard
     //so that before it is ranndomly placed on the gameboard, it will
     //nont accidentlaly appear on the top left corner of the gameboard (0,0)
+
 }
 
 GameMechs::GameMechs(int boardX, int boardY)
@@ -26,6 +27,9 @@ GameMechs::GameMechs(int boardX, int boardY)
 
     boardSizeX = boardX;
     boardSizeY = boardY;
+    
+    food.setObjPos(-10, -10, 'o');
+    generateFood(playerPos);
 }
 
 // do you need a destructor?
@@ -98,8 +102,24 @@ void GameMechs::clearInput()
 // More methods should be added here
 void GameMechs::generateFood(objPos blockOff)
 {
+    bool validPos = false;
 
+    //only need to block off the player position for now
+    while(!validPos)
+    {
+        int x = rand() % boardSizeX;
+        int y = rand() % boardSizeX;
+        if(x == blockOff.getObjPos().x && y == blockOff.getObjPos().y);
+        {
+            continue;
+        }
+
+        food.setObjPos(x, y, 'o');
+        validPos = true;
+    }
+    
 }
+
 objPos GameMechs::getFoodPos() const
 {
     return food;

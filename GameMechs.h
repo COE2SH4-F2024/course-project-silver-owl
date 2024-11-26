@@ -46,6 +46,8 @@ class GameMechs
 
         void generateFood(objPos blockOff);
         objPos getFoodPos() const;
+
+
 };
 
 #endif
