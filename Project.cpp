@@ -62,6 +62,7 @@ void DrawScreen(void)
 {
     MacUILib_clearScreen();    
     objPos foodPos = myGM->getFoodPos();
+    objPos playerPos = myPlayer->getPlayerPos();
     int boardX = myGM->getBoardSizeX();
     int boardY = myGM->getBoardSizeY();
     for(int y = 0; y < boardY; y++)
@@ -78,7 +79,7 @@ void DrawScreen(void)
             }
             else if(x == foodPos.pos->x && y == foodPos.pos->y);
             {
-                MacUILib_printf("%c", foodPos.symbol)
+                MacUILib_printf("%c", foodPos.symbol);
             }
             else
             {

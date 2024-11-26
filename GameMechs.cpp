@@ -12,6 +12,7 @@ GameMechs::GameMechs()
     boardSizeY = 10;
 
     food.setObjPos(-10, -10, 'o');
+    generateFood(playerPos);
     //int the food object to be outside the gameboard
     //so that before it is ranndomly placed on the gameboard, it will
     //nont accidentlaly appear on the top left corner of the gameboard (0,0)
@@ -28,6 +29,7 @@ GameMechs::GameMechs(int boardX, int boardY)
     boardSizeX = boardX;
     boardSizeY = boardY;
     
+    //playerPos.setObjPos(boardSizeX / 2, boardSizeY / 2, '@');
     food.setObjPos(-10, -10, 'o');
     generateFood(playerPos);
 }
@@ -110,7 +112,7 @@ void GameMechs::generateFood(objPos blockOff)
     {
         int x = rand() % boardSizeX;
         int y = rand() % boardSizeX;
-        if(x == blockOff.getObjPos().x && y == blockOff.getObjPos().y);
+        if(blockOff.pos != nullptr && x == blockOff.pos->x && y == blockOff.pos->y);
         {
             continue;
         }
