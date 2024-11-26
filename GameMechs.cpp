@@ -36,6 +36,7 @@ GameMechs::GameMechs(int boardX, int boardY)
 GameMechs::~GameMechs()
 {
     // at this moment, NO, becasue we dont have a heap member
+    
 }
 
 bool GameMechs::getExitFlagStatus() const
