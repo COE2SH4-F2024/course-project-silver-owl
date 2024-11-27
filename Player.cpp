@@ -34,25 +34,30 @@ void Player::updatePlayerDir()
     //switch case:
     switch(input)
     {
-        case'w':
-            if(myDir!=UP&&myDir!=DOWN)
+        case 'w':
+        case 'W':
+            if(myDir != UP && myDir != DOWN)
                 myDir=UP;
             break;
-        case'a':
-            if(myDir!=LEFT&&myDir!=RIGHT)
+        case 'a':
+        case 'A':
+            if(myDir != RIGHT && myDir != LEFT)
                 myDir=LEFT;
             break;
         case 's':
-            if(myDir!=UP&&myDir!=DOWN)
+        case 'S':
+            if(myDir != UP && myDir != DOWN)
                 myDir=DOWN;
             break;
         case 'd':
-            if(myDir!=LEFT&&myDir!=RIGHT)
-            myDir=RIGHT;
+        case 'D':
+            if(myDir != RIGHT && myDir != LEFT)
+                myDir=RIGHT;
             break;
         default:
             break;
-    }         
+    }
+    input=0;         
 }
 
 void Player::movePlayer()
@@ -83,6 +88,7 @@ void Player::movePlayer()
                 playerPos.pos->y = 1;  // Wrap around
             }
             break;
+        
     }
 }
 

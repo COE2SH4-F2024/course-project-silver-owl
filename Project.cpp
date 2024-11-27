@@ -17,9 +17,9 @@ void RunLogic(void);
 void DrawScreen(void);
 void LoopDelay(void);
 void CleanUp(void);
-objPos::~objPos(){
-    delete pos;//this here is required
-}
+// objPos::~objPos(){
+//     delete pos;//this here is required
+// }
 int main(void)
 {
     Initialize();
@@ -45,12 +45,16 @@ void Initialize(void)
 
 void GetInput(void)
 {
-    // Implementation for user input if needed
+    
+    myPlayer->updatePlayerDir();
 }
 
 void RunLogic(void)
 {
     // Implementation for game logic if needed
+
+    
+    myPlayer->movePlayer();
 }
 
 void DrawScreen(void)
