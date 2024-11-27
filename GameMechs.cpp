@@ -11,8 +11,8 @@ GameMechs::GameMechs()
     boardSizeX = 20;
     boardSizeY = 10;
 
-    food.setObjPos(-10, -10, 'o');
-    generateFood(playerPos);
+    // food.setObjPos(-10, -10, 'o');
+    // generateFood(playerPos);
     //int the food object to be outside the gameboard
     //so that before it is ranndomly placed on the gameboard, it will
     //nont accidentlaly appear on the top left corner of the gameboard (0,0)
@@ -30,8 +30,8 @@ GameMechs::GameMechs(int boardX, int boardY)
     boardSizeY = boardY;
     
     //playerPos.setObjPos(boardSizeX / 2, boardSizeY / 2, '@');
-    food.setObjPos(-10, -10, 'o');
-    generateFood(playerPos);
+    // food.setObjPos(-10, -10, 'o');
+    // generateFood(playerPos);
 }
 
 // do you need a destructor?
@@ -103,27 +103,27 @@ void GameMechs::clearInput()
 }
 
 // More methods should be added here
-void GameMechs::generateFood(objPos blockOff)
-{
-    bool validPos = false;
+// void GameMechs::generateFood(objPos blockOff)
+// {
+//     bool validPos = false;
 
-    //only need to block off the player position for now
-    while(!validPos)
-    {
-        int x = rand() % boardSizeX;
-        int y = rand() % boardSizeX;
-        if(blockOff.pos != nullptr && x == blockOff.pos->x && y == blockOff.pos->y);
-        {
-            continue;
-        }
+//     //only need to block off the player position for now
+//     while(!validPos)
+//     {
+//         int x = rand() % boardSizeX;
+//         int y = rand() % boardSizeX;
+//         if(blockOff.pos != nullptr && x == blockOff.pos->x && y == blockOff.pos->y);
+//         {
+//             continue;
+//         }
 
-        food.setObjPos(x, y, 'o');
-        validPos = true;
-    }
+//         food.setObjPos(x, y, 'o');
+//         validPos = true;
+//     }
     
-}
+// }
 
-objPos GameMechs::getFoodPos() const
-{
-    return food;
-}
+// objPos GameMechs::getFoodPos() const
+// {
+//     return food;
+// }

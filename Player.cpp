@@ -26,7 +26,7 @@ objPos Player::getPlayerPos() const
     // return the reference to the playerPos arrray list
     return playerPos;
 }
-
+//
 void Player::updatePlayerDir()
 {
     char input= mainGameMechsRef->getInput();//takes function frm required point in game mechs
@@ -58,6 +58,32 @@ void Player::updatePlayerDir()
 void Player::movePlayer()
 {
     // PPA3 Finite State Machine logic
+     switch(myDir) {
+        case LEFT:
+            playerPos.pos->x--;
+            if(playerPos.pos->x < 1) {
+                playerPos.pos->x = mainGameMechsRef->getBoardSizeX() - 2;  // Wrap around
+            }
+            break;
+        case RIGHT:
+            playerPos.pos->x++;
+            if(playerPos.pos->x>= mainGameMechsRef->getBoardSizeX() - 1) {
+                playerPos.pos->x = 1;  // Wrap around
+            }
+            break;
+        case UP:
+            playerPos.pos->y--;
+            if(playerPos.pos->y < 1) {
+                playerPos.pos->y = mainGameMechsRef->getBoardSizeY() - 2;  // Wrap around
+            }
+            break;
+        case DOWN:
+            playerPos.pos->y++;
+            if(playerPos.pos->y >= mainGameMechsRef->getBoardSizeY() - 1) {
+                playerPos.pos->y = 1;  // Wrap around
+            }
+            break;
+    }
 }
 
 // More methods to be added

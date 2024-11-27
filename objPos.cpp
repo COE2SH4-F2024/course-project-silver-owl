@@ -63,3 +63,24 @@ char objPos::getSymbolIfPosEqual(const objPos* refPos) const
     else
         return 0;
 }
+
+objPos::~objPos(){
+    delete pos;//this here is required
+}
+
+objPos& objPos::operator=(const objPos& other)
+{
+    if (this == &other)
+        return *this;
+
+    // Delete existing memory
+    delete pos;
+
+    // Allocate new memory and copy data
+    pos = new Pos;
+    pos->x = other.pos->x;
+    pos->y = other.pos->y;
+    symbol = other.symbol;
+
+    return *this;
+}
