@@ -44,8 +44,8 @@ class GameMechs
         
         // More methods should be added here
 
-        // void generateFood(objPos blockOff);
-        // objPos getFoodPos() const;
+        void generateFood(objPos blockOff);
+        objPos getFoodPos() const;
 
 
 };

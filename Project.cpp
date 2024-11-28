@@ -60,7 +60,7 @@ void RunLogic(void)
 void DrawScreen(void)
 {
     MacUILib_clearScreen();    
-    //objPos foodPos = myGM->getFoodPos();
+    objPos food = myGM->getFoodPos();
     objPos playerPos = myPlayer->getPlayerPos();
     int boardX = myGM->getBoardSizeX();
     int boardY = myGM->getBoardSizeY();
@@ -77,10 +77,10 @@ void DrawScreen(void)
             {
                 MacUILib_printf("%c", playerPos.symbol);
             }
-            // //else if(x == foodPos.pos->x && y == foodPos.pos->y) // Removed semicolon here
-            // {
-            //     MacUILib_printf("%c", foodPos.symbol);
-            // }
+            else if(x == food.pos->x && y == food.pos->y) // Removed semicolon here
+            {
+                MacUILib_printf("%c", food.symbol);
+            }
             else
             {
                 MacUILib_printf("%c", ' ');
