@@ -3,7 +3,10 @@
 #include "objPos.h"
 #include "Player.h"
 #include "GameMechs.h"
+#include <cstdlib>
+#include <time.h>
 using namespace std;
+
 
 #define DELAY_CONST 100000
 
@@ -31,7 +34,6 @@ int main(void)
         DrawScreen();
         LoopDelay();
     }
-
     CleanUp();
 }
 
@@ -41,19 +43,19 @@ void Initialize(void)
     MacUILib_clearScreen();
     myGM = new GameMechs();
     myPlayer = new Player(myGM); // Allows game mechanics instance to communicate with each other
+    myGM->generateFood(myPlayer->getPlayerPos()->getHeadElement());
+
 }
 
 void GetInput(void)
 {
-    
     myPlayer->updatePlayerDir();
 }
 
 void RunLogic(void)
 {
     // Implementation for game logic if needed
-
-    
+    //myGM->generateFood(myPlayer->getPlayerPos());
     myPlayer->movePlayer();
 }
 
@@ -61,37 +63,67 @@ void DrawScreen(void)
 {
     MacUILib_clearScreen();    
     objPos foodPos = myGM->getFoodPos();
-    objPos playerPos = myPlayer->getPlayerPos();
+
+    objPosArrayList* playerPos = myPlayer->getPlayerPos();
+    int playerSize = playerPos->getSize();
+
     int boardX = myGM->getBoardSizeX();
     int boardY = myGM->getBoardSizeY();
 
     for(int y = 0; y < boardY; y++)
     {
         for(int x = 0; x < boardX; x++)
-        {
-            if(y == 0 || y == boardY - 1 || x == 0 || x == boardX - 1 )
+        { 
+        //iter 3: we now need to iterate through the playerPos array list 
+        // to print all the segments out.
+            bool matched = false;
+            for(int k = 0; k < playerSize; k++)
             {
-                MacUILib_printf("%c", '#');
+                objPos thisSeg = playerPos->getElement(k);
+
+                //iter 3: check if the current segment x, y pos matches
+                // the (x,y)coordinate; if yes, print the symbol
+                if (x == thisSeg.pos->x && y == thisSeg.pos->y)
+                {
+                    MacUILib_printf("%c", thisSeg.symbol);
+                    matched = true;
+
+                    //at the end of the for loop, do something to 
+                    //determine whether to continue with the if-else
+                    //or move on to the next iteration of x-y
+
+                    break;  // No need to check further as a match has been found
+                }
+
             }
-            else if(x == playerPos.pos->x && y == playerPos.pos->y)
+
+        //Watch OUT!!
+        //we need to skip the if-else block below
+        // if we have printed something in the for loop
+            if(!matched)
             {
-                MacUILib_printf("%c", playerPos.symbol);
+                if(y == 0 || y == boardY - 1 || x == 0 || x == boardX - 1 )
+                {
+                    MacUILib_printf("%c", '#');
+                }
+
+                else if(x == foodPos.pos->x && y == foodPos.pos->y) // Removed semicolon here
+                {
+                    MacUILib_printf("%c", foodPos.symbol);
+                }
+                else
+                {
+                    MacUILib_printf("%c", ' ');
+                }
             }
-            else if(x == foodPos.pos->x && y == foodPos.pos->y) // Removed semicolon here
-            {
-                MacUILib_printf("%c", foodPos.symbol);
-            }
-            else
-            {
-                MacUILib_printf("%c", ' ');
-            }
+            
         }
         MacUILib_printf("\n");
     }
 
     // Debug: Output player position
-    MacUILib_printf("Player [x, y] = [%d, %d], %c\n",
-                    playerPos.pos->x, playerPos.pos->y, playerPos.symbol);
+    // MacUILib_printf("Player [x, y] = [%d, %d], %c\n",
+    //                 playerPos.pos->x, playerPos.pos->y, playerPos.symbol);
 }
 
 void LoopDelay(void)

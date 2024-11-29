@@ -1,6 +1,8 @@
 #include "GameMechs.h"
 #include "MacUILib.h"
 #include "Player.h" 
+#include <cstdlib>
+#include <time.h>
 
 GameMechs::GameMechs()
 {
@@ -10,11 +12,10 @@ GameMechs::GameMechs()
     score = 0;
     boardSizeX = 20;
     boardSizeY = 10;
-    foodPos.setObjPos(-10, -10, 'o');
-
+    //foodPos.setObjPos(-10 , -10, 'o');
     // int the food object to be outside the gameboard
     // so that before it is ranndomly placed on the gameboard, it will
-    // nont accidentlaly appear on the top left corner of the gameboard (0,0)
+    // not accidentaly appear on the top left corner of the gameboard (0,0)
 }
 GameMechs::GameMechs(int boardX, int boardY)
 {
@@ -25,7 +26,7 @@ GameMechs::GameMechs(int boardX, int boardY)
     boardSizeX = boardX;
     boardSizeY = boardY;
 
-    foodPos.setObjPos(-10, -10, 'o');
+    //foodPos.setObjPos(-10, -10, 'o');
     //generateFood(objPos playerPos);
 }
 
@@ -88,20 +89,22 @@ void GameMechs::clearInput()
 //More methods should be added here
 void GameMechs::generateFood(objPos blockOff)
 {
+    srand(time(NULL));
     bool validPos = false;
 
+    
     //only need to block off the player position for now
     while(!validPos)
     {
-        int x = rand() % (boardSizeX-2)+1;
-        int y = rand() % (boardSizeY-2)+1;
-
-        if(blockOff.pos != nullptr && x == blockOff.pos->x && y == blockOff.pos->y);
+        int randomx = rand() % (boardSizeX-2)+1;
+        int randomy = rand() % (boardSizeY-2)+1;
+        
+        if(randomx == blockOff.pos->x && randomy == blockOff.pos->y)
         {
             continue;
         }
 
-        foodPos.setObjPos(x, y, 'o');
+        foodPos.setObjPos(randomx, randomy, 'o');
         validPos = true;
     }
 }
