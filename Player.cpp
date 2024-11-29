@@ -74,6 +74,11 @@ void Player::movePlayer()
     //PPA3 finite state machine logic
     updatePlayerDir(); //get the current position
 
+        if (myDir == STOP) 
+        {
+            return;
+        }
+
     //create a temporary objPos to calculate the new head position
     //probably should get the head element of the playerPosList
     // as a good starting point
@@ -117,6 +122,14 @@ void Player::movePlayer()
     //inter3: insert temp objPos to the head of the list
     playerPosList->insertHead(newHead);
 
+    //iter 3: check for collision with the snake's body
+    if (checkSelfCollision())
+    {
+        mainGameMechsRef->setLoseFlag();
+        mainGameMechsRef->setExitTrue();
+        return;
+    }
+
     //iter3 (later in feature 2):
     //      check if the new temp objPos overlaps
     //      the food pos (get it from GameMechs Class)
@@ -128,7 +141,7 @@ void Player::movePlayer()
     if(newHead.isPosEqual(&foodPos))
     {
         mainGameMechsRef->incrementScore();
-        mainGameMechsRef->generateFood(newHead);
+        mainGameMechsRef->generateFood(playerPosList);
 
     }
     //iter3 if no overlap, remove tail, complete movement.
@@ -139,4 +152,22 @@ void Player::movePlayer()
 }
 
 // More methods to be added
+bool Player::checkSelfCollision()
+{
+
+    objPos headPos = playerPosList->getHeadElement();
+
+    // check if collision with the snake's body occured
+    for (int i = 1; i < playerPosList->getSize(); i++)
+    {
+        objPos currentElement = playerPosList->getElement(i);
+        if (headPos.pos->x == currentElement.pos->x && headPos.pos->y == currentElement.pos->y)
+        {
+            return true; //collision
+        }
+    }
+    return false; //no collision
+}
+
+
 

@@ -12,7 +12,8 @@ GameMechs::GameMechs()
     score = 0;
     boardSizeX = 20;
     boardSizeY = 10;
-    //foodPos.setObjPos(-10 , -10, 'o');
+    playerRef = 0;
+
     // int the food object to be outside the gameboard
     // so that before it is ranndomly placed on the gameboard, it will
     // not accidentaly appear on the top left corner of the gameboard (0,0)
@@ -25,6 +26,7 @@ GameMechs::GameMechs(int boardX, int boardY)
     score = 0;
     boardSizeX = boardX;
     boardSizeY = boardY;
+    playerRef = 0;
 
     //foodPos.setObjPos(-10, -10, 'o');
     //generateFood(objPos playerPos);
@@ -55,6 +57,11 @@ char GameMechs::getInput()
 }
 int GameMechs::getScore() const
 {
+    if(playerRef != 0)
+    {
+        // The score is list size - 1
+        return playerRef->getPlayerPos()->getSize()-1;
+    }
     return score;
 }
 void GameMechs::incrementScore()
@@ -87,28 +94,45 @@ void GameMechs::clearInput()
 }
 
 //More methods should be added here
-void GameMechs::generateFood(objPos blockOff)
+void GameMechs::generateFood(objPosArrayList* blockOffList)
 {
-    srand(time(NULL));
+    //srand(time(NULL));
     bool validPos = false;
 
     
-    //only need to block off the player position for now
     while(!validPos)
     {
         int randomx = rand() % (boardSizeX-2)+1;
         int randomy = rand() % (boardSizeY-2)+1;
         
-        if(randomx == blockOff.pos->x && randomy == blockOff.pos->y)
+        //iterate through every single objPos element in the playerPosLis
+        //so that the position of the new food item does not overlap with
+        //any of the elements
+        bool overlap = false;
+        for(int i = 0; i < blockOffList->getSize(); i++)
         {
-            continue;
+            objPos playerSeg = blockOffList->getElement(i);
+            if(randomx == playerSeg.pos->x && randomy == playerSeg.pos->y)
+            {
+                overlap = true;
+                break;
+            }
         }
 
-        foodPos.setObjPos(randomx, randomy, 'o');
-        validPos = true;
+        if(!overlap)
+        {
+            foodPos.setObjPos(randomx, randomy, 'o');
+            validPos=true;
+        }
+
     }
 }
 objPos GameMechs::getFoodPos() const
 {
     return foodPos;
+}
+
+void GameMechs::setPlayerRef(Player* player)
+{
+    playerRef = player;
 }

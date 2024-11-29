@@ -39,11 +39,13 @@ int main(void)
 
 void Initialize(void)
 {
+    srand(time(NULL));
     MacUILib_init();
     MacUILib_clearScreen();
     myGM = new GameMechs();
     myPlayer = new Player(myGM); // Allows game mechanics instance to communicate with each other
-    myGM->generateFood(myPlayer->getPlayerPos()->getHeadElement());
+    myGM->generateFood(myPlayer->getPlayerPos());
+    myGM->setPlayerRef(myPlayer); //set player reference to GameMechs
 
 }
 
@@ -55,7 +57,6 @@ void GetInput(void)
 void RunLogic(void)
 {
     // Implementation for game logic if needed
-    //myGM->generateFood(myPlayer->getPlayerPos());
     myPlayer->movePlayer();
 }
 
@@ -120,10 +121,11 @@ void DrawScreen(void)
         }
         MacUILib_printf("\n");
     }
+    // Display the score below the game board
+    MacUILib_printf("Score: %d\n", myGM->getScore());
 
-    // Debug: Output player position
-    // MacUILib_printf("Player [x, y] = [%d, %d], %c\n",
-    //                 playerPos.pos->x, playerPos.pos->y, playerPos.symbol);
+    //Debug: Output player position
+   //MacUILib_printf("Player [x, y] = [%d, %d], %c\n",thisSeg.pos->x, thisSeg.pos->y, thisSeg.symbol);
 }
 
 void LoopDelay(void)

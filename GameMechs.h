@@ -6,6 +6,7 @@
 
 #include "objPos.h"
 #include "objPosArrayList.h"
+class Player; 
 
 using namespace std;
 
@@ -21,6 +22,7 @@ class GameMechs
         int boardSizeY;
 
         objPos foodPos;
+        Player* playerRef; 
 
     public:
         GameMechs();
@@ -44,8 +46,9 @@ class GameMechs
         
         // More methods should be added here
 
-        void generateFood(objPos blockOff);
+        void generateFood(objPosArrayList* blockOffList);
         objPos getFoodPos() const;
+        void setPlayerRef(Player* playerRef);
 
 
 };
