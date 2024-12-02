@@ -15,10 +15,6 @@ Player::Player(GameMechs* thisGMRef)
     //iter3: intialize playerPosList with the starting position
     playerPosList->insertHead(headPos);
 
-    // more actions to be included
-    //playerPos.pos->x=mainGameMechsRef->getBoardSizeX()/2;
-    //playerPos.pos->y=mainGameMechsRef->getBoardSizeY()/2;
-    //playerPos.symbol= '@';
 
 }
 
@@ -26,7 +22,6 @@ Player::Player(GameMechs* thisGMRef)
 Player::~Player()
 {
     // delete any heap members here
-    //no keyword "new" in the constructor, hence no heap member for now
     delete playerPosList;
 }
 
@@ -125,8 +120,7 @@ void Player::movePlayer()
     //iter 3: check for collision with the snake's body
     if (checkSelfCollision())
     {
-        mainGameMechsRef->setLoseFlag();
-        mainGameMechsRef->setExitTrue();
+        mainGameMechsRef->setLoseFlag("You ate yourself! Game Over!");
         return;
     }
 

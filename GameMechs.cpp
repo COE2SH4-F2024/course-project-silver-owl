@@ -1,8 +1,7 @@
 #include "GameMechs.h"
 #include "MacUILib.h"
 #include "Player.h" 
-#include <cstdlib>
-#include <time.h>
+
 
 GameMechs::GameMechs()
 {
@@ -14,9 +13,6 @@ GameMechs::GameMechs()
     boardSizeY = 10;
     playerRef = 0;
 
-    // int the food object to be outside the gameboard
-    // so that before it is ranndomly placed on the gameboard, it will
-    // not accidentaly appear on the top left corner of the gameboard (0,0)
 }
 GameMechs::GameMechs(int boardX, int boardY)
 {
@@ -28,8 +24,6 @@ GameMechs::GameMechs(int boardX, int boardY)
     boardSizeY = boardY;
     playerRef = 0;
 
-    //foodPos.setObjPos(-10, -10, 'o');
-    //generateFood(objPos playerPos);
 }
 
 // do you need a destructor?
@@ -96,7 +90,6 @@ void GameMechs::clearInput()
 //More methods should be added here
 void GameMechs::generateFood(objPosArrayList* blockOffList)
 {
-    //srand(time(NULL));
     bool validPos = false;
 
     
@@ -130,6 +123,19 @@ void GameMechs::generateFood(objPosArrayList* blockOffList)
 objPos GameMechs::getFoodPos() const
 {
     return foodPos;
+}
+
+void GameMechs::setLoseFlag(const char* loseMessage)
+{
+    loseFlag = true;
+    exitFlag = true;
+    if (loseMessage)
+    {
+        MacUILib_clearScreen();
+        MacUILib_printf("%s\n", loseMessage);
+
+        MacUILib_Delay(5000000);
+    }
 }
 
 void GameMechs::setPlayerRef(Player* player)

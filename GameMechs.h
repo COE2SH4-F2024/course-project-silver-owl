@@ -48,6 +48,7 @@ class GameMechs
 
         void generateFood(objPosArrayList* blockOffList);
         objPos getFoodPos() const;
+        void setLoseFlag(const char* loseMessage);
         void setPlayerRef(Player* playerRef);
 
 
