@@ -122,7 +122,7 @@ void GameMechs::generateFood(objPosArrayList* blockOffList)
 }
 objPos GameMechs::getFoodPos() const
 {
-    return foodPos;
+    return foodPos; 
 }
 
 void GameMechs::setLoseFlag(const char* loseMessage)
@@ -132,13 +132,12 @@ void GameMechs::setLoseFlag(const char* loseMessage)
     if (loseMessage)
     {
         MacUILib_clearScreen();
-        MacUILib_printf("%s\n", loseMessage);
-
-        MacUILib_Delay(5000000);
+        MacUILib_printf("%s\n", loseMessage); //print the lose message, if game is lost
+        MacUILib_Delay(5000000); //print for this duration to allow player adequate time to read the message
     }
 }
 
 void GameMechs::setPlayerRef(Player* player)
 {
-    playerRef = player;
+    playerRef = player; 
 }

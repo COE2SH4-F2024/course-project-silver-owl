@@ -10,7 +10,7 @@ Player::Player(GameMechs* thisGMRef)
 
     objPos headPos(mainGameMechsRef->getBoardSizeX()/2,
                     mainGameMechsRef->getBoardSizeY()/2,
-                    '@');
+                    '@'); //symbol for the player '@'
 
     //iter3: intialize playerPosList with the starting position
     playerPosList->insertHead(headPos);
@@ -37,7 +37,7 @@ void Player::updatePlayerDir()
         // PPA3 input processing logic 
     //switch case:
     switch(input)
-    {
+    { //take inputs allow for lower and upper case
         case 'w':
         case 'W':
             if(myDir != UP && myDir != DOWN)
